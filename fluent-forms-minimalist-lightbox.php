@@ -3,7 +3,7 @@
  * Plugin Name:       Fluent Forms Minimalist Lightbox
  * Plugin URI:        https://example.com/fluent-forms-minimalist-lightbox
  * Description:       Öffnet ein Fluent Form elegant und barrierearm in einer performanten Vanilla-JS Lightbox via Shortcode.
- * Version:           2.0.0
+ * Version:           2.0.1
  * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:            Michael Kanda
@@ -36,7 +36,7 @@ final class MK_FFLB_Lightbox {
 	/**
 	 * Plugin-Version – dient gleichzeitig als Cache-Buster für die Assets.
 	 */
-	const VERSION = '2.0.0';
+	const VERSION = '2.0.1';
 
 	/**
 	 * Merkt sich, ob der Shortcode auf der Seite verwendet wurde,
@@ -239,6 +239,11 @@ final class MK_FFLB_Lightbox {
 		@media (prefers-reduced-motion: reduce){
 			.{$p}-overlay,.{$p}-content{transition:none;}
 		}
+		/* Fix: Fluent-Forms-Datepicker (Flatpickr) hängt seinen Kalender an den
+		   <body> und nutzt z-index:99999. Das liegt unter unserem Overlay
+		   (z-index:999999), wodurch der Kalender hinter dem abgedunkelten
+		   Hintergrund verschwindet. Wir heben ihn darüber. */
+		.flatpickr-calendar{z-index:1000001 !important;}
 		";
 	}
 
