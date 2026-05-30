@@ -87,3 +87,8 @@ Nein. CSS und JS werden nur dann eingebunden, wenn der Shortcode auf der jeweili
 
 = 2.0.0 =
 Empfohlenes Update: bessere Performance durch konditionales Laden, deutlich verbesserte Barrierefreiheit und WP-konformes Asset-Handling. Der Shortcode bleibt vollständig kompatibel.
+
+----------------------------------
+Developed with ❤️ by Michael Kanda
+https://designare.at
+
