@@ -1,92 +1,138 @@
-=== Fluent Forms Minimalist Lightbox ===
-Contributors: michaelkanda
-Tags: fluent forms, lightbox, modal, popup, shortcode
-Requires at least: 6.3
-Tested up to: 6.8
-Requires PHP: 7.4
-Stable tag: 2.0.0
-License: GPL-2.0-or-later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+# Fluent Forms Minimalist Lightbox
 
-Öffnet ein Fluent Form elegant und barrierearm in einer performanten Vanilla-JS Lightbox – per Shortcode, ohne Abhängigkeiten.
+Öffnet ein [Fluent Form](https://fluentforms.com/) elegant und barrierearm in einer performanten Vanilla-JS-Lightbox – per Shortcode, ohne externe Abhängigkeiten.
 
-== Description ==
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
+![WordPress](https://img.shields.io/badge/WordPress-6.3%2B-21759b)
+![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4)
+![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
 
-Fluent Forms Minimalist Lightbox bindet ein beliebiges Fluent Form in ein schlankes, animiertes Overlay ein, das per Button-Klick geöffnet wird. Das Plugin kommt ohne jQuery oder externe Bibliotheken aus und lädt sein CSS/JS ausschließlich auf Seiten, auf denen der Shortcode tatsächlich verwendet wird.
+---
 
-**Funktionen**
+## Inhalt
 
-* Beliebiges Fluent Form per Shortcode in einer Lightbox öffnen.
-* Reines Vanilla JS – keine externen Abhängigkeiten.
-* Assets laufen über die offizielle WordPress-Asset-Pipeline (kompatibel mit Caching- und Minify-Plugins) und werden nur konditional geladen.
-* Barrierearm: `role="dialog"`, `aria-modal`, Focus-Trap, Fokus-Rücksprung auf den auslösenden Button, Schließen per ESC und per Klick auf den Hintergrund.
-* Respektiert `prefers-reduced-motion`.
-* Mehrere Buttons/Formulare pro Seite möglich.
-* Vollständig übersetzbar (Textdomain `ff-minimalist-lightbox`).
+- [Funktionen](#funktionen)
+- [Voraussetzungen](#voraussetzungen)
+- [Installation](#installation)
+- [Verwendung](#verwendung)
+- [Shortcode-Attribute](#shortcode-attribute)
+- [Styling](#styling)
+- [Barrierefreiheit](#barrierefreiheit)
+- [Übersetzung](#übersetzung)
+- [Changelog](#changelog)
+- [Lizenz](#lizenz)
 
-**Hinweis:** Dieses Plugin benötigt das separat installierte Plugin „Fluent Forms". Ist es nicht aktiv, gibt der Shortcode für Besucher nichts aus; Administratoren sehen einen dezenten Hinweis.
+---
 
-== Installation ==
+## Funktionen
 
-1. Den Plugin-Ordner in das Verzeichnis `/wp-content/plugins/` hochladen oder das Plugin über **Plugins → Installieren** als ZIP einspielen.
-2. Das Plugin im Menü **Plugins** aktivieren.
-3. Sicherstellen, dass das Plugin „Fluent Forms" installiert und aktiv ist.
-4. Den Shortcode an gewünschter Stelle einfügen (siehe „Frequently Asked Questions").
+- **Beliebiges Fluent Form in einer Lightbox** – per Button-Klick geöffnet.
+- **Reines Vanilla JS** – kein jQuery, keine externen Bibliotheken.
+- **WP-konformes Asset-Handling** – CSS/JS laufen über die offizielle WordPress-Pipeline (`wp_register_*` / `wp_add_inline_*`) und sind damit mit Caching- und Minify-Plugins kompatibel.
+- **Konditionales Laden** – Assets werden nur auf Seiten geladen, auf denen der Shortcode tatsächlich rendert.
+- **Barrierearm** – `role="dialog"`, `aria-modal`, Focus-Trap, Fokus-Rücksprung, Schließen per ESC und Klick auf den Hintergrund.
+- **Respektiert `prefers-reduced-motion`.**
+- **Mehrere Buttons/Formulare pro Seite** möglich.
+- **Vollständig übersetzbar** (Textdomain `ff-minimalist-lightbox`).
 
-== Frequently Asked Questions ==
+## Voraussetzungen
 
-= Wie binde ich das Formular ein? =
+| Anforderung      | Version       |
+| ---------------- | ------------- |
+| WordPress        | 6.3 oder höher |
+| PHP              | 7.4 oder höher |
+| Fluent Forms     | aktiv installiert |
 
-Mit dem Shortcode:
+> Ist Fluent Forms nicht aktiv, gibt der Shortcode für Besucher nichts aus; Administratoren sehen einen dezenten Hinweis.
 
-`[fluentform_lightbox id="4" label="Seminarraum buchen"]`
+## Installation
 
-= Welche Attribute gibt es? =
+**Variante A – als ZIP über das WP-Backend**
 
-* `id` – ID des Fluent Form (Standard: `4`). Es werden nur Ziffern akzeptiert.
-* `label` – Beschriftung des Buttons (Standard: „Seminarraum buchen").
-* `class` – Optionale zusätzliche CSS-Klasse(n) für den Button, z. B. zur Integration in das Theme-Styling.
+1. Repository als ZIP herunterladen.
+2. Im WordPress-Backend zu **Plugins → Installieren → Plugin hochladen** gehen.
+3. ZIP auswählen, installieren und aktivieren.
 
-Beispiel mit eigener Klasse:
+**Variante B – manuell / per Git**
 
-`[fluentform_lightbox id="7" label="Jetzt anfragen" class="btn btn-primary"]`
+```bash
+cd wp-content/plugins/
+git clone https://github.com/<dein-account>/fluent-forms-minimalist-lightbox.git
+```
 
-= Kann ich mehrere Formulare auf einer Seite verwenden? =
+Anschließend das Plugin im Menü **Plugins** aktivieren.
 
-Ja. Jeder Shortcode erzeugt anhand der Formular-ID eine eigene Lightbox. Mehrere Buttons und Overlays funktionieren unabhängig voneinander.
+## Verwendung
 
-= Wie passe ich das Design an? =
+Den Shortcode an gewünschter Stelle einfügen (Beitrag, Seite, Widget, Block-Editor):
 
-Alle Elemente nutzen das Präfix `mk-fflb` (z. B. `.mk-fflb-overlay`, `.mk-fflb-content`, `.mk-fflb-trigger`, `.mk-fflb-close`). Eigene Regeln im Theme oder über „Customizer → Zusätzliches CSS" überschreiben die Standardwerte.
+```text
+[fluentform_lightbox id="4" label="Seminarraum buchen"]
+```
 
-= Lädt das Plugin Assets auf allen Seiten? =
+Beispiel mit eigener CSS-Klasse:
 
-Nein. CSS und JS werden nur dann eingebunden, wenn der Shortcode auf der jeweiligen Seite tatsächlich gerendert wird.
+```text
+[fluentform_lightbox id="7" label="Jetzt anfragen" class="btn btn-primary"]
+```
 
-== Screenshots ==
+## Shortcode-Attribute
 
-1. Geöffnete Lightbox mit eingebettetem Fluent Form.
-2. Auslöse-Button im Seiteninhalt.
+| Attribut | Standard            | Beschreibung                                                        |
+| -------- | ------------------- | ------------------------------------------------------------------- |
+| `id`     | `4`                 | ID des Fluent Form. Es werden ausschließlich Ziffern akzeptiert.    |
+| `label`  | `Seminarraum buchen` | Beschriftung des Buttons.                                           |
+| `class`  | _(leer)_            | Optionale zusätzliche CSS-Klasse(n) für den Button.                 |
 
-== Changelog ==
+## Styling
 
-= 2.0.0 =
-* Umbau auf die offizielle WordPress-Asset-Pipeline (`wp_register_*` / `wp_add_inline_*`) statt direkter Ausgabe im Footer.
-* Konditionales Laden: Assets nur noch auf Seiten mit aktivem Shortcode.
-* Barrierefreiheit ergänzt: `role="dialog"`, `aria-modal`, `aria-labelledby`, Focus-Trap und Fokus-Rücksprung.
-* `prefers-reduced-motion` wird respektiert.
-* Vollständige Internationalisierung (Textdomain, übersetzbare Strings).
-* Klassenbasierte Struktur mit eindeutigem Präfix und Singleton-Initialisierung.
-* Graceful Fallback, wenn Fluent Forms nicht aktiv ist.
-* Striktere Validierung der Formular-ID und konsequentes Escaping.
+Alle Elemente nutzen das Präfix `mk-fflb`:
 
-= 1.0.0 =
-* Erste Veröffentlichung.
+| Klasse              | Element                          |
+| ------------------- | -------------------------------- |
+| `.mk-fflb-trigger`  | Auslöse-Button                   |
+| `.mk-fflb-overlay`  | Overlay / Hintergrund            |
+| `.mk-fflb-content`  | Inhaltsfenster der Lightbox      |
+| `.mk-fflb-close`    | Schließen-Button                 |
 
-== Upgrade Notice ==
+Eigene Regeln im Theme oder über **Customizer → Zusätzliches CSS** überschreiben die Standardwerte, z. B.:
 
-= 2.0.0 =
-Empfohlenes Update: bessere Performance durch konditionales Laden, deutlich verbesserte Barrierefreiheit und WP-konformes Asset-Handling. Der Shortcode bleibt vollständig kompatibel.
+```css
+.mk-fflb-content {
+    max-width: 720px;
+    border-radius: 8px;
+}
+```
+
+## Barrierefreiheit
+
+- Dialog mit `role="dialog"`, `aria-modal="true"` und `aria-labelledby`.
+- **Focus-Trap**: Tab/Shift+Tab bleiben innerhalb des Dialogs.
+- Fokus springt beim Öffnen in den Dialog und beim Schließen zurück auf den auslösenden Button.
+- Schließen per **ESC**, per **X-Button** und per Klick auf den Hintergrund.
+- Animationen werden bei `prefers-reduced-motion: reduce` deaktiviert.
+
+## Übersetzung
+
+Alle Strings sind über die Textdomain `ff-minimalist-lightbox` übersetzbar. Übersetzungsdateien (`.po`/`.mo`) gehören in den Ordner `/languages`.
+
+## Changelog
+
+### 2.0.0
+- Umbau auf die offizielle WordPress-Asset-Pipeline statt direkter Ausgabe im Footer.
+- Konditionales Laden der Assets nur bei aktivem Shortcode.
+- Barrierefreiheit ergänzt: `role="dialog"`, `aria-modal`, `aria-labelledby`, Focus-Trap, Fokus-Rücksprung.
+- `prefers-reduced-motion` wird respektiert.
+- Vollständige Internationalisierung.
+- Klassenbasierte Struktur mit eindeutigem Präfix und Singleton-Initialisierung.
+- Graceful Fallback ohne Fluent Forms, striktere ID-Validierung, konsequentes Escaping.
+
+### 1.0.0
+- Erste Veröffentlichung.
+
+## Lizenz
+
+[GPL-2.0-or-later](https://www.gnu.org/licenses/gpl-2.0.html) © Michael Kanda
 
 ----------------------------------
 Developed with ❤️ by Michael Kanda
