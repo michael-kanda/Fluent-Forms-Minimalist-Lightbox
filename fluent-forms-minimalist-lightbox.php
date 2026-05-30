@@ -3,7 +3,7 @@
  * Plugin Name:       Fluent Forms Minimalist Lightbox
  * Plugin URI:        https://example.com/fluent-forms-minimalist-lightbox
  * Description:       Öffnet ein Fluent Form elegant und barrierearm in einer performanten Vanilla-JS Lightbox via Shortcode.
- * Version:           2.0.1
+ * Version:           2.0.2
  * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:            Michael Kanda
@@ -36,7 +36,7 @@ final class MK_FFLB_Lightbox {
 	/**
 	 * Plugin-Version – dient gleichzeitig als Cache-Buster für die Assets.
 	 */
-	const VERSION = '2.0.1';
+	const VERSION = '2.0.2';
 
 	/**
 	 * Merkt sich, ob der Shortcode auf der Seite verwendet wurde,
@@ -244,6 +244,20 @@ final class MK_FFLB_Lightbox {
 		   (z-index:999999), wodurch der Kalender hinter dem abgedunkelten
 		   Hintergrund verschwindet. Wir heben ihn darüber. */
 		.flatpickr-calendar{z-index:1000001 !important;}
+
+		/* Fix: overflow-y:auto erzwingt laut CSS-Spec auch overflow-x:auto.
+		   Dadurch wird der linke/rechte Rand randständiger Felder (z.B. die
+		   Button-Optionen samt Rahmen/Box-Shadow) um ~1px abgeschnitten und
+		   wirkt 'offen'. Etwas horizontale Innen-Luft im Formular und das
+		   Neutralisieren negativer Zeilen-Margins behebt das. */
+		.{$p}-content .frm-fluent-form,
+		.{$p}-content .fluentform{
+			padding-left:3px;padding-right:3px;box-sizing:border-box;
+		}
+		.{$p}-content .ff-el-group,
+		.{$p}-content .ff_form_group{
+			margin-left:0;margin-right:0;
+		}
 		";
 	}
 
