@@ -745,18 +745,30 @@ final class MK_FFLB_Lightbox {
 		}
 		.{$p}-overlay.is-active{display:flex;opacity:1;}
 		.{$p}-content{
-			background:#fff;padding:40px 30px 30px;border-radius:16px;
+			background:#fff;padding:52px 30px 30px;border-radius:16px;
 			width:100%;max-width:600px;max-height:90vh;overflow-y:auto;
 			position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,.25);
 			transform:scale(.95);transition:transform .25s ease;
 		}
 		.{$p}-overlay.is-active .{$p}-content{transform:scale(1);}
+		/* Schließen-Button bewusst dezent halten. Theme- und Fluent-Forms-
+		   Button-Styles (goldener Hintergrund, Rahmen, Padding) werden hier
+		   gezielt neutralisiert, damit das X nicht als Kasten erscheint und
+		   nicht ins erste Formularfeld ragt. */
 		.{$p}-close{
-			position:absolute;top:12px;right:16px;background:none;border:none;
-			font-size:28px;color:#94a3b8;cursor:pointer;line-height:1;
-			transition:color .2s ease;
+			position:absolute;top:10px;right:10px;z-index:2;
+			display:flex;align-items:center;justify-content:center;
+			width:32px;height:32px;min-width:0;min-height:0;
+			padding:0 !important;margin:0 !important;
+			background:transparent !important;border:0 !important;
+			box-shadow:none !important;outline:none;border-radius:6px;
+			font-size:22px;font-weight:400;line-height:1;color:#b4bac4;
+			cursor:pointer;-webkit-appearance:none;appearance:none;
+			transition:color .2s ease,background-color .2s ease;
 		}
-		.{$p}-close:hover,.{$p}-close:focus-visible{color:#1e293b;}
+		.{$p}-close:hover,.{$p}-close:focus-visible{
+			color:#475569;background:rgba(15,23,42,.05) !important;
+		}
 		.{$p}-sr-only{
 			position:absolute;width:1px;height:1px;padding:0;margin:-1px;
 			overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
